@@ -2,19 +2,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO / EEAT Meta Tags -->
-<title>PawSwap</title>
-<meta name="description" content="A complete guide to using PawSwap. Learn routing, fees, slippage, MEV considerations, limit orders, DCA, wallet setup, and best practices for secure, efficient swaps on EVM networks.">
-<meta name="author" content="DeFi Research & Engineering">
-<link rel="canonical" href="https://your-github-pages-url.example/">
-<link rel="icon" type="image/png" href="hdKN1qx__400x400.jpg">
 
-<!-- Open Graph / Facebook -->
+<!-- SEO / EEAT Meta Tags -->
+<title>PawSwap — PawSwap Exchange</title>
+<meta name="description" content="Pro guide to PawSwap: routing on PawSwap Exchange, pool types, fee math, slippage frameworks, MEV safety, limit orders, DCA, LP strategy, analytics KPIs, and troubleshooting on PawSwap Chain." />
+<meta name="author" content="DeFi Research & Engineering" />
+<link rel="canonical" href="https://your-github-pages-url.example/">
+<link rel="icon" type="image/png" href="652ca8592e6b500001292180_pawswap.png" />
+
+<!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://your-github-pages-url.example/">
-<meta property="og:title" content="PawSwap — The Complete Guide (2025)">
-<meta property="og:description" content="Everything you need to swap with PawSwap: routing, fees, slippage, MEV safety, limit orders, DCA, wallets, and security.">
-<meta property="og:image" content="https://images.unsplash.com/photo-1642152599009-f7091515b888?q=80&amp;w=2070&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3">
+<meta property="og:title" content="PawSwap — PawSwap Exchange & PawSwap Chain (2025 Guide)">
+<meta property="og:description" content="Everything you need to trade on PawSwap Exchange: router logic, fees, slippage, MEV protection, LP strategy, and risk controls for PawSwap Chain.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1642152599009-f7091515b888?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3">
 
 <meta property="article:published_time" content="2025-08-06T12:00:00Z">
 <meta property="article:author" content="DeFi Research & Engineering">
@@ -22,83 +23,165 @@
 <!-- Twitter Card -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://your-github-pages-url.example/">
-<meta property="twitter:title" content="PawSwap — The Complete Guide (2025)">
-<meta property="twitter:description" content="Learn PawSwap routing, fees, slippage, limit orders, DCA, and MEV-safe practices.">
-<meta property="twitter:image" content="https://images.unsplash.com/photo-1642152599009-f7091515b888?q=80&amp;w=2070&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3">
+<meta property="twitter:title" content="PawSwap — Router, Fees & Safety on PawSwap Exchange">
+<meta property="twitter:description" content="Optimize swaps on PawSwap: slippage math, gas strategy, LP insights, and recovery playbooks. Focused on PawSwap Chain.">
+<meta property="twitter:image" content="https://images.unsplash.com/photo-1642152599009-f7091515b888?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3">
 
-<!-- Google Fonts -->
+<!-- Google Fonts (local mirror suggested) -->
 <link href="css2.css" rel="stylesheet">
 
-<!-- Schema.org Markup for EEAT & SEO -->
-<!-- (Optional) Add JSON-LD for Article/FAQPage -->
+<!-- (Optional) JSON-LD Article Schema -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"PawSwap — PawSwap Exchange & PawSwap Chain (2025 Guide)",
+  "description":"Expert guide covering routing on PawSwap Exchange, pool mechanics, fee modeling, slippage frameworks, MEV-aware execution, and LP strategy on PawSwap Chain.",
+  "datePublished":"2025-08-06T12:00:00Z",
+  "author":{"@type":"Organization","name":"DeFi Research & Engineering"},
+  "mainEntityOfPage":"https://your-github-pages-url.example/"
+}
+</script>
 
 <style>
-    /* CSS Reset and Base Styles */
+    /* ===== PawSwap soft-blue theme palette ===== */
     :root {
-        --primary-color: #1a202c;
-        --secondary-color: #4a5568;
-        --accent-color: #16a34a; /* Green */
-        --accent-hover-color: #15803d;
-        --bg-light: #f7fafc;
-        --bg-white: #ffffff;
-        --border-color: #e2e8f0;
-        --icon-bg-color: #e6e6ff;
+        --primary-color: #0F2B5C;                 /* headings ink (navy) */
+        --secondary-color: #3C557E;               /* body text (muted blue) */
+        --accent-color: #28B1FF;                  /* paw blue accent */
+        --accent-hover-color: #1E8ED1;            /* darker accent for hover */
+        --bg-white: #F7FBFF;                      /* page background (very light blue) */
+        --bg-light: #EEF6FF;                      /* panels/hero */
+        --border-color: rgba(40, 177, 255, 0.25); /* soft borders */
+        --icon-bg-color: rgba(40,177,255,0.12);   /* icon circles */
+        --table-row-hover: rgba(40,177,255,0.06);
+        --table-row-highlight: rgba(30,142,209,0.08);
+        --muted: #5F769B;
+        --success: #12B886;
+        --warning: #F59F00;
     }
-    body { margin: 0; font-family: 'Open Sans', sans-serif; background-color: var(--bg-white); color: var(--secondary-color); line-height: 1.7; font-size: 1.1rem; }
-    h1, h2, h3, h4, h5, h6 { font-family: 'Lato', sans-serif; color: var(--primary-color); font-weight: 700; line-height: 1.3; }
-    h1 { font-size: 3.2rem; font-weight: 900; }
-    h2 { font-size: 2.2rem; margin-top: 3.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
-    h3 { font-size: 1.6rem; margin-top: 2.5rem; }
-    p { margin-bottom: 1rem; }
-    a { color: var(--accent-color); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .container { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
-    img { max-width: 100%; height: auto; border-radius: 8px; }
 
-    /* Hero Section */
-    .hero { background-color: var(--bg-light); padding: 4rem 0; }
+    /* Base */
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Inter, Arial, sans-serif;
+        background-color: var(--bg-white);
+        color: var(--secondary-color);
+        line-height: 1.7;
+        font-size: 1.08rem;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Lato', sans-serif;
+        color: var(--primary-color);
+        font-weight: 800;
+        line-height: 1.25;
+    }
+    h1 { font-size: 3.0rem; }
+    h2 {
+        font-size: 2.1rem;
+        margin-top: 3.2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.5rem;
+    }
+    h3 { font-size: 1.45rem; margin-top: 2.0rem; }
+    p { margin-bottom: 1rem; color: var(--secondary-color); }
+    a { color: var(--accent-color); text-decoration: none; }
+    a:hover { color: var(--accent-hover-color); text-decoration: underline; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+    img { max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+
+    /* Hero */
+    .hero {
+        background:
+          radial-gradient(900px 420px at 50% -200px, rgba(40,177,255,.10), transparent 70%),
+            linear-gradient(135deg, var(--bg-white) 0%, var(--bg-light) 100%);
+        padding: 4rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
     .hero .container { display: flex; align-items: center; gap: 2rem; }
     .hero-text { flex: 1; }
-    .hero-text p { font-size: 1.2rem; max-width: 500px; }
-    .hero-image { flex: 1; display: none; /* Hide on mobile first */ }
-    .hero-image img { border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    .cta-button { display: inline-block; background-color: var(--accent-color); color: var(--bg-white); padding: 1rem 2.5rem; border-radius: 8px; font-size: 1.1rem; font-weight: 700; text-decoration: none; transition: background-color 0.3s ease; margin-top: 1.5rem; }
-    .cta-button:hover { background-color: var(--accent-hover-color); color: var(--bg-white); text-decoration: none; }
+    .hero-text p { font-size: 1.12rem; max-width: 560px; color: var(--muted); }
+    .hero-image { flex: 1; display: none; }
+    .hero-image img { border-radius: 14px; }
+
+    .cta-button {
+        display: inline-block;
+        background: linear-gradient(45deg, var(--accent-color), var(--accent-hover-color));
+        color: #FFFFFF;
+        padding: 0.9rem 2.2rem;
+        border-radius: 999px;
+        font-size: 1.02rem;
+        font-weight: 800;
+        letter-spacing: .2px;
+        box-shadow: 0 12px 30px rgba(40,177,255,0.18);
+        transition: transform .2s ease, box-shadow .2s ease;
+        margin-top: 1.2rem;
+    }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 18px 44px rgba(30,142,209,0.22); }
     .center-cta { text-align: center; padding: 2rem 0; }
 
-    /* Step-by-Step Guide Section */
-    .step-guide { padding: 4rem 0 2rem 0; background-color: var(--bg-white); }
-    .step-guide h2 { text-align: center; border-bottom: none; margin-bottom: 3rem; font-size: 2.5rem; }
-    .steps-container { display: grid; grid-template-columns: 1fr; gap: 1.5rem; text-align: center; }
-    .step-card { background: var(--bg-white); padding: 2rem 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); transition: transform 0.2s ease, box-shadow 0.2s ease; }
-    .step-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-    .step-icon { background-color: var(--icon-bg-color); width: 60px; height: 60px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
-    .step-icon svg { width: 32px; height: 32px; color: #4c4cff; }
-    .step-content h3 { margin-top: 0; font-size: 1.4rem; }
+    /* Steps */
+    .step-guide { padding: 3.6rem 0 2rem 0; background-color: transparent; }
+    .step-guide h2 { text-align: center; border-bottom: none; margin-bottom: 2.6rem; }
+    .steps-container { display: grid; grid-template-columns: 1fr; gap: 1.2rem; text-align: center; }
+    .step-card {
+        background: #FFFFFF;
+        padding: 1.8rem 1.4rem;
+        border-radius: 14px;
+        border: 1px solid var(--border-color);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+    }
+    .step-card:hover { transform: translateY(-4px); box-shadow: 0 18px 48px rgba(0,0,0,0.08); }
+    .step-icon {
+        background-color: var(--icon-bg-color);
+        width: 60px; height: 60px; border-radius: 50%;
+        display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+        box-shadow: inset 0 0 18px rgba(40,177,255,0.14);
+    }
+    .step-icon svg { width: 30px; height: 30px; color: var(--accent-hover-color); }
+    .step-content h3 { margin-top: 0; font-size: 1.25rem; color: var(--primary-color); }
 
-    /* Main Content & Tables */
+    /* Main & Tables */
     .main-content { padding: 2rem 0 4rem 0; }
-    table { width: 100%; border-collapse: collapse; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.6rem 0;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #FFFFFF;
+    }
     th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
-    th { background-color: var(--bg-light); font-family: 'Lato', sans-serif; color: var(--primary-color); }
-    tr.highlight-row { background-color: #f0fff4; }
+    th {
+        background: linear-gradient(180deg, rgba(40,177,255,0.10), rgba(30,142,209,0.08));
+        color: var(--primary-color);
+        letter-spacing: .2px;
+    }
+    tr.highlight-row { background-color: var(--table-row-highlight); }
     tr:last-child td { border-bottom: none; }
-    tr:hover { background-color: #edf2f7; }
+    tr:hover { background-color: var(--table-row-hover); }
 
-    /* Trust & Author Section */
-    .eeat-section { background-color: var(--bg-light); border: 1px solid var(--border-color); padding: 2rem; margin: 3rem 0; border-radius: 12px; }
+    /* EEAT */
+    .eeat-section {
+        background: linear-gradient(180deg, rgba(40,177,255,0.06), rgba(30,142,209,0.06));
+        border: 1px solid var(--border-color);
+        padding: 2rem; margin: 3rem 0; border-radius: 14px;
+    }
     .eeat-section h3 { margin-top: 0; }
     .eeat-section ul { list-style: none; padding: 0; }
     .eeat-section ul li { margin-bottom: 0.75rem; }
-    .eeat-section ul li a { font-weight: 600; }
+    .eeat-section ul li a { font-weight: 700; }
 
-    /* FAQ Section */
+    /* FAQ */
     .faq-section { padding: 2rem 0 4rem 0; }
-    .faq-item { border-bottom: 1px solid var(--border-color); padding: 1.5rem 0; }
+    .faq-item { border-bottom: 1px dashed var(--border-color); padding: 1.2rem 0; }
     .faq-item:last-child { border-bottom: none; }
-    .faq-item h3 { margin: 0; font-size: 1.3rem; }
+    .faq-item h3 { margin: 0 0 .35rem; font-size: 1.18rem; color: var(--primary-color); }
 
-    /* Responsive Design */
+    /* Responsive */
     @media (min-width: 768px) {
         .hero-image { display: block; }
         .steps-container { grid-template-columns: repeat(2, 1fr); }
@@ -107,71 +190,75 @@
         .steps-container { grid-template-columns: repeat(4, 1fr); }
     }
     @media (max-width: 767px) {
-        h1 { font-size: 2.5rem; }
-        h2 { font-size: 1.8rem; }
+        h1 { font-size: 2.4rem; }
+        h2 { font-size: 1.7rem; }
         .hero .container { flex-direction: column; }
     }
 </style>
 </head>
 <body>
 
-<!-- Hero Section -->
+<!-- ===== HERO ===== -->
 <header class="hero">
     <div class="container">
         <div class="hero-text">
-            <h1>PawSwap</h1>
-            <p>This expert guide explains how to swap tokens with PawSwap — covering routing, fees, slippage control, MEV-safe practices, limit orders, DCA, and security on EVM networks.</p>
-            <a href="" class="cta-button" target="_blank" rel="noopener noreferrer nofollow">Open PawSwap →</a>
+            <h1>PawSwap — Dashboard | PawSwap Chain</h1>
+            <p>
+                Trade smarter on <strong>PawSwap</strong> and <strong>PawSwap Exchange</strong>: understand how routing weighs
+                <em>effective price</em>, when to prefer stable vs volatile pools, and how to size orders for low slippage.
+                Get frameworks for gas, MEV safety, LP math, and failure recovery tailored to <strong>PawSwap Chain</strong>.
+            </p>
+            <a href="#" class="cta-button" target="_blank" rel="noopener noreferrer nofollow">Open PawSwap Exchange →</a>
         </div>
         <div class="hero-image">
-            <img src="9351cece-72c3-4e53-98c7-d8b7c905e38b.png" alt="PawSwap UI preview">
+            <img src="Paw (78).png" alt="PawSwap Exchange UI preview">
         </div>
     </div>
 </header>
 
-<!-- Step-by-Step Guide Section -->
+<!-- ===== STEPS ===== -->
 <section class="step-guide">
     <div class="container">
-        <h2>How PawSwap Works</h2>
+        <h2>How PawSwap Works on PawSwap Chain</h2>
         <div class="steps-container">
-            <!-- Step 1 -->
             <div class="step-card">
                 <div class="step-icon">
+                    <!-- Wallet -->
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z"/></svg>
                 </div>
                 <div class="step-content">
                     <h3>1) Connect Wallet</h3>
-                    <p>Use MetaMask, Rabby, or a hardware wallet via WalletConnect. Select the correct network and keep native gas token (e.g., ETH) for fees.</p>
+                    <p>Use a mainstream wallet (e.g., MetaMask/Rabby) or hardware wallet via WalletConnect. Switch to <strong>PawSwap Chain</strong> and keep the <strong>native gas token</strong> for approvals and swaps.</p>
                 </div>
             </div>
-            <!-- Step 2 -->
             <div class="step-card">
                 <div class="step-icon">
+                    <!-- Routing -->
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193l-3.722.267c-.34.024-.65.18-.882.416l-2.652 2.652a1.125 1.125 0 0 1-1.591 0l-2.652-2.652a1.125 1.125 0 0 0-.882-.416l-3.722-.267A2.125 2.125 0 0 1 3 14.894V10.608c0-.97.616-1.813 1.5-2.097L6.6 8.111a1.125 1.125 0 0 1 1.087.057l1.844 1.23a1.125 1.125 0 0 0 1.087 0l1.844-1.23a1.125 1.125 0 0 1 1.087-.057l2.153 1.435Z"/></svg>
                 </div>
                 <div class="step-content">
-                    <h3>2) Quote & Routing</h3>
-                    <p>Select tokens and the amount. PawSwap fetches routes and pool quotes across supported DEXs/AMMs, aiming for best execution and minimal price impact.</p>
+                    <h3>2) PawSwap Routing</h3>
+                    <p>Pick tokens and size. The <strong>PawSwap Exchange</strong> router evaluates single-hop vs multi-hop paths and weighs <em>net output after gas</em>. It can mix stable and volatile pools to reduce price impact.</p>
                 </div>
             </div>
-            <!-- Step 3 -->
             <div class="step-card">
                 <div class="step-icon">
+                    <!-- Shield -->
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
                 </div>
                 <div class="step-content">
-                    <h3>3) Review Protections</h3>
-                    <p>Set slippage tolerance, consider using a private RPC (MEV-protected) if available, and verify token contract addresses before approval and swap.</p>
+                    <h3>3) Slippage & MEV Safety</h3>
+                    <p>Set realistic slippage, verify token contracts on the <strong>PawSwap Chain explorer</strong>, and consider private/builder RPC to reduce sandwich risk. Split sizable orders over time or across pools.</p>
                 </div>
             </div>
-            <!-- Step 4 -->
             <div class="step-card">
                 <div class="step-icon">
+                    <!-- Check -->
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 3a9 9 0 0 0-18 0"/></svg>
                 </div>
                 <div class="step-content">
-                    <h3>4) Swap & Settle</h3>
-                    <p>Approve the token (first time only), then sign the swap. Settlement finalizes on-chain; confirm balances and token contracts in your wallet.</p>
+                    <h3>4) Approve, Swap, Settle</h3>
+                    <p>Approve the token (first time) and sign. Settlement finalizes on-chain to your wallet; confirm balances and review route hops for transparency.</p>
                 </div>
             </div>
         </div>
@@ -179,21 +266,68 @@
 </section>
 
 <div class="center-cta">
-    <a href="" class="cta-button" target="_blank" rel="noopener noreferrer">Try PawSwap →</a>
+    <a href="#" class="cta-button" target="_blank" rel="noopener noreferrer">Try PawSwap Exchange →</a>
 </div>
 
-<!-- Main Content -->
+<!-- ===== MAIN ===== -->
 <main class="main-content container">
 
-    <p>This guide is a practical companion for swapping tokens with <strong>PawSwap</strong>. You’ll learn how routing works, how to tune slippage and gas, and how to use advanced features like <strong>limit orders</strong> and <strong>DCA</strong>, while protecting yourself from common pitfalls and MEV exposure.</p>
+    <p>
+        This handbook explains <strong>PawSwap</strong> mechanics for power users: pool design on <strong>PawSwap Exchange</strong>, modeling
+        <em>effective price</em> (received tokens minus gas/fees), and order sizing for depth on <strong>PawSwap Chain</strong>.
+        You’ll also find LP strategy, analytics KPIs, and a troubleshooting runbook.
+    </p>
 
-    <img src="screen2.png" alt="PawSwap walkthrough">
+    <img src="9351cece-72c3-4e53-98c7-d8b7c905e38b.png" alt="PawSwap Exchange walkthrough">
 
-    <h2>Swap Methods with PawSwap (and Alternatives)</h2>
-    <p>PawSwap acts as an interface/routing layer across multiple liquidity sources. Depending on your goals (speed, control, order size), different methods may fit better.</p>
+    <h2>PawSwap Pools — Execution & Liquidity Behavior</h2>
+    <p>
+        <strong>PawSwap</strong> supports two common AMM archetypes: <em>volatile</em> (constant-product x·y=k) for non-correlated pairs and
+        <em>stable</em> (curve-like) for correlated assets. The router may use multi-hop routes to improve <em>effective price</em>
+        by balancing pool fees, gas, and price impact.
+    </p>
 
-    <!-- Table 1: Method Comparison -->
-    <h3>Comparing Swap Methods</h3>
+    <h3>Stable vs Volatile — Practical Comparison</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Dimension</th>
+                <th>Stable Pools</th>
+                <th>Volatile Pools</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="highlight-row">
+                <td>Liquidity Shape</td>
+                <td>Curve compresses slippage near parity (e.g., pegged/strongly correlated pairs)</td>
+                <td>Classic x·y=k; slippage scales with depth and trade size</td>
+            </tr>
+            <tr>
+                <td>When It Wins</td>
+                <td>Correlated pairs, tight tolerances, routing pivots</td>
+                <td>Non-correlated assets with consistent volume</td>
+            </tr>
+            <tr>
+                <td>Routing Notes</td>
+                <td>Useful as a pivot leg for larger tickets</td>
+                <td>Direct hop is simpler and cheapest on gas</td>
+            </tr>
+            <tr>
+                <td>LP Considerations</td>
+                <td>Lower IL; fee APY tied to stable volume</td>
+                <td>Higher IL risk; fees offset if two-sided flow persists</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Swap Methods on PawSwap (Router, Direct, Aggregators)</h2>
+    <p>
+        For small tickets, direct routes often suffice. For larger trades, the <strong>PawSwap Exchange</strong> router may
+        combine a stable pivot with a volatile leg to reduce impact. If moving value from another network, bridge first via
+        a reputable cross-chain service, then execute locally on <strong>PawSwap Chain</strong>.
+    </p>
+
+    <h3>Method Comparison for PawSwap Execution</h3>
     <table>
         <thead>
             <tr>
@@ -205,36 +339,38 @@
         </thead>
         <tbody>
             <tr class="highlight-row">
-                <td><strong>PawSwap Aggregator (UI)</strong></td>
-                <td><strong>Best execution</strong>, broad liquidity</td>
-                <td>Route simulation, split routes, slippage controls, MEV-aware flows, verified lists</td>
-                <td>Results depend on network liquidity; always verify token contracts</td>
+                <td><strong>PawSwap Router</strong></td>
+                <td>Net-best price</td>
+                <td>Chooses stable vs volatile; multi-hop if needed; weighs gas vs output</td>
+                <td>Always verify token contracts; inspect route preview for size</td>
             </tr>
             <tr>
-                <td><strong>Single DEX / AMM</strong></td>
-                <td>Simple flows, specific pools</td>
-                <td>Direct pool interaction, predictable pool fee</td>
-                <td>May miss better routes; larger price impact on thin pools</td>
+                <td><strong>Direct Stable</strong></td>
+                <td>Correlated pairs</td>
+                <td>Curve near parity; tight execution</td>
+                <td>Thin stable pools can underperform deep volatile legs</td>
             </tr>
             <tr>
-                <td><strong>Limit Orders (via PawSwap if supported)</strong></td>
-                <td>Target price execution</td>
-                <td>Off-chain monitoring; on-chain settlement at trigger</td>
-                <td>No fill guarantee; consider partial fills & expiry</td>
+                <td><strong>Direct Volatile</strong></td>
+                <td>Non-correlated pairs with depth</td>
+                <td>Simplest path and low gas</td>
+                <td>Slippage rises with order size</td>
             </tr>
             <tr>
-                <td><strong>DCA (via PawSwap if supported)</strong></td>
-                <td>Reduce timing risk</td>
-                <td>Automated periodic swaps, budget control</td>
-                <td>Fees/gas across legs; ensure funding and schedule</td>
+                <td><strong>External Aggregator</strong></td>
+                <td>Cross-venue comparisons</td>
+                <td>Benchmarks PawSwap Exchange vs others</td>
+                <td>Extra hops; compare <em>net</em> (gas + price)</td>
             </tr>
         </tbody>
     </table>
 
-    <h2>Understanding Fees on PawSwap</h2>
-    <p>On EVM networks, you pay <strong>gas</strong> (in the chain’s native token) plus any <strong>AMM pool fees</strong> embedded in the route. Effective cost also includes <strong>price impact</strong> on low-liquidity pairs and any optional interface/integrator fees.</p>
+    <h2>Fees on PawSwap — Gas, Pool Fee, Price Impact</h2>
+    <p>
+        Your <em>effective price</em> = received tokens minus <strong>gas</strong> (native token) minus <strong>pool fees</strong> minus implicit <strong>price impact</strong>.
+        On <strong>PawSwap Chain</strong>, gas is typically modest; pool depth, fee tier, and slippage discipline dominate results.
+    </p>
 
-    <!-- Table 2: Fee Breakdown -->
     <h3>Typical Fee Components</h3>
     <table>
         <thead>
@@ -246,118 +382,120 @@
         </thead>
         <tbody>
             <tr>
-                <td>Gas (EVM)</td>
-                <td>Varies by network load</td>
-                <td>Paid in native token (e.g., ETH). Consider off-peak times or priority settings.</td>
+                <td>Gas (native token)</td>
+                <td>Low; varies with load</td>
+                <td>Keep a buffer; during volatility, a higher priority tip reduces pending time.</td>
             </tr>
             <tr>
-                <td>Pool / Liquidity Fee</td>
+                <td>Pool Fee</td>
                 <td>~0.05%–0.3%+</td>
-                <td>Set by the AMM/pool; varies by route and pair.</td>
+                <td>Varies by pool tier/model; check the UI breakdown before signing.</td>
             </tr>
             <tr>
                 <td>Price Impact</td>
-                <td>Route-dependent</td>
-                <td>Higher for illiquid tokens or large size; mitigated by route splits/limit orders.</td>
-            </tr>
-            <tr>
-                <td>Optional Interface Fee</td>
-                <td>0%–X%</td>
-                <td>Shown transparently in reputable UIs; verify before signing.</td>
+                <td>Depth-dependent</td>
+                <td>Split size or consider limit/DCA when depth is thin.</td>
             </tr>
         </tbody>
     </table>
 
-    <h2>Safety & Best Practices</h2>
-    <p>DeFi is powerful but unforgiving. Use these practices to stay safe.</p>
-
-    <h3>Practical Protections</h3>
+    <h2>Advanced PawSwap Strategy — Slippage, MEV, Sizing</h2>
+    <h3>Slippage Framework</h3>
     <ul>
-        <li><strong>Verify token contracts:</strong> Use reputable lists or the project’s official site. Beware ticker clones.</li>
-        <li><strong>Slippage discipline:</strong> Tight for liquid majors (e.g., 0.1–0.5%), looser for thin tokens. Consider partial fills.</li>
-        <li><strong>MEV-aware flow:</strong> Prefer private RPC / “send to builder” options when available; avoid leaking transactions to public mempools for large swaps.</li>
-        <li><strong>Allowance hygiene:</strong> Grant minimal token approvals; periodically revoke old allowances.</li>
-        <li><strong>Test first:</strong> Try a small swap before executing big size.</li>
-        <li><strong>Phishing defense:</strong> Bookmark official URLs; never sign unknown or opaque transactions.</li>
+        <li><strong>Stables/majors:</strong> 0.10–0.50% typical on deep pools.</li>
+        <li><strong>Mid/long-tail:</strong> Start conservative; widen after testing route stability.</li>
+        <li><strong>High volatility:</strong> Slightly widen or use limit orders to avoid repeated reverts.</li>
     </ul>
 
-    <h2>Compliance & Risks</h2>
-    <p>Swaps carry market risk (volatility, slippage) and smart-contract risk (pool/router issues). Keep transaction records per your jurisdiction’s rules. Store seed phrases offline and consider hardware wallets.</p>
+    <h3>MEV-Aware Execution</h3>
+    <ul>
+        <li>Prefer private/builder RPC if available to reduce mempool exposure.</li>
+        <li>Split large orders; smaller footprints reduce sandwich incentives.</li>
+        <li>Raise priority fee in busy periods to shorten time-to-inclusion.</li>
+    </ul>
 
-    <!-- Trust & Author Section -->
+    <h3>Analytics & KPIs for PawSwap Exchange</h3>
+    <ul>
+        <li><strong>Quoted vs realized output:</strong> Measure drift from slippage, fees, and inclusion delay.</li>
+        <li><strong>Effective price:</strong> Received per unit after all costs — the only fair route comparator.</li>
+        <li><strong>Fail/Cancel rate:</strong> Indicator for tuning slippage presets and RPC health.</li>
+    </ul>
+
+    <h2>Liquidity Providing on PawSwap</h2>
+    <p>
+        As an LP you earn fees but assume <em>inventory risk</em>. Stable pools mitigate IL on correlated pairs; volatile pools can out-earn via fees when two-sided
+        flow is persistent. Align pool choice with your risk tolerance and with durable demand on <strong>PawSwap Exchange</strong>.
+    </p>
+    <h3>LP Best Practices</h3>
+    <ul>
+        <li>Prefer pairs with steady, organic flow and sensible fee tiers.</li>
+        <li>Model IL vs fee income across scenarios; do not extrapolate from a single day.</li>
+        <li>Reinvest fees thoughtfully; track net PnL (fees − IL − gas).</li>
+    </ul>
+
+    <h2>Troubleshooting PawSwap — Common Errors & Fixes</h2>
+    <ul>
+        <li><strong>INSUFFICIENT_OUTPUT_AMOUNT:</strong> Price moved; refresh quotes, widen slippage modestly, or split size.</li>
+        <li><strong>TRANSFER_FROM_FAILED:</strong> Missing/insufficient allowance or non-standard token. Re-approve the minimum and retry.</li>
+        <li><strong>Pending too long:</strong> Raise priority fee or switch RPC; consider private submission where available.</li>
+        <li><strong>Unexpected token received:</strong> Verify exact contract addresses on the <strong>PawSwap Chain explorer</strong>; confirm route hops in the UI.</li>
+    </ul>
+
     <section class="eeat-section">
         <h3>Authoritative & Trustworthy Resources</h3>
-        <p>For deeper technical and safety details, consult official docs and wallet resources.</p>
+        <p>Validate each step with primary sources and explorers.</p>
         <ul>
+            <li><a href="#" target="_blank" rel="noopener nofollow">PawSwap Docs</a> — Official documentation for PawSwap & PawSwap Exchange.</li>
+            <li><a href="#" target="_blank" rel="noopener nofollow">PawSwap Chain Explorer</a> — Verify token contracts and track transactions.</li>
             <li><a href="https://metamask.io/learn" target="_blank" rel="noopener nofollow">MetaMask Learn</a> — Wallet safety, approvals, and gas basics.</li>
-            <li><a href="https://docs.uniswap.org/" target="_blank" rel="noopener nofollow">Uniswap Docs</a> — AMM mechanics and pool fees (general AMM concepts).</li>
-            <li><a href="https://etherscan.io/" target="_blank" rel="noopener nofollow">Etherscan</a> — Verify token contracts, read/write contract data, and track txs.</li>
         </ul>
         <div class="author-bio">
             <h4>About the Author</h4>
-            <p>Prepared by DeFi Research & Engineering — builders and auditors focused on routing, liquidity, and wallet UX. Our goal is clear, practical guidance for safe, efficient on-chain execution.</p>
+            <p>Prepared by DeFi Research & Engineering — practitioners in routing, liquidity modeling, and wallet UX. Goal: safer, more efficient execution on PawSwap Exchange and PawSwap Chain.</p>
         </div>
     </section>
 
-    <!-- FAQ Section -->
     <section class="faq-section">
-        <h2>Frequently Asked Questions (FAQ)</h2>
+        <h2>PawSwap FAQ — PawSwap, PawSwap Exchange, PawSwap Chain</h2>
         <div class="faq-list">
-
             <div class="faq-item">
-                <h3>What makes PawSwap different from using a single DEX?</h3>
-                <p>PawSwap aggregates routes across multiple pools/DEXs, often splitting orders to reduce price impact and improve effective price versus swapping in one venue.</p>
+                <h3>When should I use stable vs volatile pools on PawSwap?</h3>
+                <p><strong>Stable:</strong> correlated/pegged pairs for tight tolerances. <strong>Volatile:</strong> non-correlated pairs with depth. The router typically chooses based on effective price.</p>
             </div>
-
             <div class="faq-item">
-                <h3>How do I set slippage correctly?</h3>
-                <p>Use tight slippage (e.g., 0.1–0.5%) for highly liquid pairs and wider for illiquid ones. If price moves beyond your tolerance, the transaction won’t execute.</p>
+                <h3>What is PawSwap Chain in practice?</h3>
+                <p><strong>PawSwap Chain</strong> refers to the network environment where PawSwap Exchange routes and settles swaps. Always keep the native gas token for approvals and swaps.</p>
             </div>
-
             <div class="faq-item">
-                <h3>How can I reduce MEV risk?</h3>
-                <p>Use private RPC or builder relays when available, avoid mempool leakage on large trades, and keep slippage tight. Consider splitting size or using limit orders.</p>
+                <h3>What slippage is reasonable on PawSwap Exchange?</h3>
+                <p>Stables/majors: 0.1–0.5%. Mid/long-tail: higher, but start conservative. If swaps fail, refresh quotes, adjust slippage, or split the order.</p>
             </div>
-
             <div class="faq-item">
-                <h3>Which wallets work best?</h3>
-                <p>MetaMask and Rabby are common choices on EVM networks; combine with a hardware wallet for stronger key security. Keep native tokens for gas.</p>
+                <h3>How do I minimize MEV on PawSwap Chain?</h3>
+                <p>Use tight slippage, submit during calmer periods, consider private/builder RPC, split large orders, and bump priority fee when the network is busy.</p>
             </div>
-
             <div class="faq-item">
-                <h3>Does PawSwap support limit orders and DCA?</h3>
-                <p>If supported in the current UI, limit orders target a specific price and execute upon reaching it, while DCA schedules periodic swaps to reduce timing risk.</p>
+                <h3>Why can realized output differ from the quote?</h3>
+                <p>On-chain state evolves between quote and inclusion. Other trades move price and gas adds friction. Compare routes by <em>effective price</em>, not just the headline quote.</p>
             </div>
-
             <div class="faq-item">
-                <h3>Why did my output differ from the initial quote?</h3>
-                <p>On-chain states change quickly. Factors include price impact, pool fees, and route refresh. Proper slippage and timely execution minimize discrepancies.</p>
+                <h3>Do I need KYC to trade on PawSwap?</h3>
+                <p>PawSwap is wallet-connected. Typically no KYC, but follow local laws and keep records for reporting.</p>
             </div>
-
             <div class="faq-item">
-                <h3>Do I need KYC?</h3>
-                <p>Interfaces like PawSwap typically connect your wallet directly to on-chain liquidity. However, your local laws may impose reporting obligations—keep records.</p>
+                <h3>How big can I trade without heavy slippage?</h3>
+                <p>Depends on pool depth and current volatility. For size, inspect route preview, split orders, or consider limit/DCA if your toolset supports it.</p>
             </div>
-
             <div class="faq-item">
-                <h3>How large can I swap without heavy slippage?</h3>
-                <p>It depends on route liquidity. For larger size, try splitting orders, using limit orders, or scheduling DCA to reduce impact.</p>
+                <h3>How do I verify I’m swapping the correct token?</h3>
+                <p>Match contract addresses using the official project links and the PawSwap Chain explorer. Never rely on tickers or icons alone.</p>
             </div>
-
-            <div class="faq-item">
-                <h3>How do I verify I’m buying the correct token?</h3>
-                <p>Match contract addresses from official project pages or reputable sources (e.g., Etherscan). Be wary of ticker look-alikes.</p>
-            </div>
-
-            <div class="faq-item">
-                <h3>My transaction failed — what now?</h3>
-                <p>Common causes: insufficient gas, too-tight slippage, stale route, or allowance issues. Add native gas token, widen slippage slightly, refresh the route, re-approve if needed, and retry with a small test.</p>
-            </div>
-
         </div>
     </section>
 
 </main>
+</body>
+</html>
 
 
 
